@@ -1,0 +1,35 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<header class="header">Favorites</header>
+<mat-tab-group>
+  <mat-tab class="favorite_tab" label="Favorites List">
+    <div class="sheet__tab" *ngFor="let pokemon of favoritesDetails">
+      <div class="card" style="background-color: rgb(15, 186, 209)">
+        <h2 class="name">{{ pokemon.name }}</h2>
+        <button class="favorite_removal" (click)="onAddFavorite(pokemon)">
+          <i class="fa fa-undo"></i>
+        </button>
+        <img
+          class="pokemon_image"
+          *ngIf="classicMode"
+          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{
+            pokemon.id
+          }}.png"
+          alt="Pokemon_Picture"
+          (click)="onDetail(pokemon)"
+        />
+        <img
+          class="pokemon_image"
+          *ngIf="!classicMode"
+          src="https://projectpokemon.org/images/normal-sprite/{{
+            pokemon.name
+          }}.gif"
+          alt="Pokemon_Picture"
+          (click)="onDetail(pokemon)"
+        />
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,156 @@
+<header class="header">Details</header>
+<div class="sheet__img">
+  <img
+    *ngIf="classicMode"
+    [src]="pokemon.sprites?.front_default"
+    [alt]="pokemon.name"
+  />
+  <img
+    *ngIf="!classicMode"
+    src="https://projectpokemon.org/images/normal-sprite/{{ pokemon.name }}.gif"
+    [alt]="pokemon.name"
+  />
+</div>
+
+<mat-tab-group class="sheet">
+  <mat-tab label="About">
+    <div class="sheet__tab">
+      <div class="sheet__item">
+        <div class="color-gray sheet__item_label">Pokedex No.</div>
+        <div class="color-gray sheet__item_label">Pokemon Name:</div>
+        <div class="color-gray sheet__item_label">Height:</div>
+        <div class="color-gray sheet__item_label">Weight:</div>
+        <div class="color-gray sheet__item_label">Abilities:</div>
+      </div>
+      <div class="sheet__item">
+        <div>{{ pokemon.id }}</div>
+        <div style="text-transform: capitalize">{{ pokemon.name }}</div>
+        <div>{{ pokemon.height }}</div>
+        <div>{{ pokemon.weight }}</div>
+        <div style="text-transform: capitalize">{{ getAbilities() }}</div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Base Stats">
+    <div class="sheet__tab">
+      <div class="sheet__item w-100">
+        <div class="sheet__progress w-100">
+          <div class="w-20 color-gray sheet__item_label">HP:</div>
+          <div class="w-80">
+            <app-progress-bar
+              [color]="getPrincipalType(pokemon.types)"
+              [value]="pokemon.stats[5].base_stat"
+            ></app-progress-bar>
+          </div>
+        </div>
+
+        <div class="sheet__progress w-100">
+          <div class="w-20 color-gray sheet__item_label">Attack:</div>
+          <div class="w-80">
+            <app-progress-bar
+              [color]="getPrincipalType(pokemon.types)"
+              [value]="pokemon.stats[4].base_stat"
+            ></app-progress-bar>
+          </div>
+        </div>
+
+        <div class="sheet__progress w-100">
+          <div class="w-20 color-gray sheet__item_label">Defense:</div>
+          <div class="w-80">
+            <app-progress-bar
+              [color]="getPrincipalType(pokemon.types)"
+              [value]="pokemon.stats[3].base_stat"
+            ></app-progress-bar>
+          </div>
+        </div>
+
+        <div class="sheet__progress w-100">
+          <div class="w-20 color-gray sheet__item_label">Sp. Attack:</div>
+          <div class="w-80">
+            <app-progress-bar
+              [color]="getPrincipalType(pokemon.types)"
+              [value]="pokemon.stats[2].base_stat"
+            ></app-progress-bar>
+          </div>
+        </div>
+
+        <div class="sheet__progress w-100">
+          <div class="w-20 color-gray sheet__item_label">Sp. Defense:</div>
+          <div class="w-80">
+            <app-progress-bar
+              [color]="getPrincipalType(pokemon.types)"
+              [value]="pokemon.stats[1].base_stat"
+            ></app-progress-bar>
+          </div>
+        </div>
+
+        <div class="sheet__progress w-100">
+          <div class="w-20 color-gray sheet__item_label">Speed:</div>
+          <div class="w-80">
+            <app-progress-bar
+              [color]="getPrincipalType(pokemon.types)"
+              [value]="pokemon.stats[0].base_stat"
+            ></app-progress-bar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Moves">
+    <div class="sheet__tab">
+      <div class="color-gray sheet__item_label">Moves:</div>
+      <div
+        class="sheet__item"
+        style="text-transform: capitalize; font-weight: 500"
+      >
+        {{ getMoves() }}
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Game Versions">
+    <div class="sheet__tab">
+      <div class="sheet__item">
+        <div class="color-gray sheet__item_label">
+          Areas of Encounter:
+          <div
+            *ngFor="let item of locations | keyvalue"
+            style="text-transform: capitalize; font-weight: 500"
+          >
+            {{ item.key }} : {{ item.value }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Evolution Chain">
+    <div class="sheet__tab">
+      <div class="sheet__item">
+        <div class="color-gray sheet__item_label">Evolution Chain:</div>
+        <div
+          style="text-transform: capitalize; font-weight: bold"
+          *ngFor="let pokemon of chainOrder"
+        >
+          <img
+            *ngIf="classicMode"
+            [src]="pokemon.sprites?.front_default"
+            [alt]="pokemon.name"
+            (click)="onDetail(pokemon)"
+          />
+          <img
+            *ngIf="!classicMode"
+            src="https://projectpokemon.org/images/normal-sprite/{{
+              pokemon.name
+            }}.gif"
+            [alt]="pokemon.name"
+            (click)="onDetail(pokemon)"
+          />
+          {{ pokemon.name }}
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
